@@ -11,6 +11,15 @@ body {
   font-family: sans-serif;
   line-height: 1.4;
   font-size: larger;
+  background-color: #888;
+}
+
+.mobile-container {
+  max-width: 430px;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: white;
 }
 
 a {
