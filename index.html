@@ -3,14 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style/main.css">
+    <title>Yume Ramen</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/main.css">
 </head>
 <body>
     <div class="yumeramenmaindiv">
+        <!--NAVBAR-->
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Yume Ramen</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="scroll.html">Scroller</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!--HERO HEADER-->
+        <div class="hero-header position-relative">
+            <img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=800" alt="Hero Image" class="w-100">
+            <div class="position-absolute top-50 start-50 translate-middle">
+                <a href="login.html" class="btn btn-primary btn-lg">Order Now</a>
+            </div>
+        </div>
+        
+        <!--NEWEST ADDITIONS CAROUSEL-->
+        <div class="p-4">
+            <div id="productsCarousel" class="carousel slide carousel-container" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800" alt="Product 1" class="d-block w-100 carousel-img">
+                            <div class="product-info p-3 text-center">
+                                <h5 class="mb-1">Spicy Miso Ramen</h5>
+                                <p class="mb-0">$12.99</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1580959375944-abd7e991a971?w=800" alt="Product 2" class="d-block w-100 carousel-img">
+                            <div class="product-info p-3 text-center">
+                                <h5 class="mb-1">Tonkotsu Ramen</h5>
+                                <p class="mb-0">$14.99</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc45e?w=800" alt="Product 3" class="d-block w-100 carousel-img">
+                            <div class="product-info p-3 text-center">
+                                <h5 class="mb-1">Shoyu Ramen</h5>
+                                <p class="mb-0">$11.99</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls d-flex justify-content-center gap-2 mt-3">
+                <button class="btn btn-sm btn-outline-dark" type="button" data-bs-target="#productsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="btn btn-sm btn-outline-dark" type="button" data-bs-target="#productsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            </div>
+        </div>
         
     </div>
-    <a href="scroll.html">scroller</a>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

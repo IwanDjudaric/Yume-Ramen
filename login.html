@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yume Ramen</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/main.css">
+    <style>
+        .navbar {
+            background-color: #343a40; /* Dark grey */
+            border-bottom-right-radius: 12px;
+            border-bottom-left-radius: 12px;
+            height: 100px; /* Make the header bigger vertically */
+            display: flex;
+            align-items: center; /* Center content vertically */
+            justify-content: center; /* Center content horizontally */
+            text-align: center; /* Ensure text alignment is centered */
+        }
+        .navbar .container-fluid {
+            display: flex;
+            justify-content: center; /* Center the content inside the container */
+        }
+        .navbar a.navbar-brand {
+            font-size: 2.5rem; /* Larger font size for Yume Ramen */
+            font-weight: bold;
+            color: white;
+        }
+        .navbar a.navbar-link {
+            color: white;
+        }
+        .navbar a.nav-link:hover {
+            color: #adb5bd; /* Light grey */
+        }
+        .card-title {
+            font-size: 2rem; /* Bigger header */
+            font-weight: bold; /* Bolder header */
+            text-align: center; /* Center the header */
+        }
+        .create-account-link {
+            font-size: 0.9rem; /* Smaller font size */
+            text-decoration: underline; /* Underline the text */
+        }
+        .card {
+            border-radius: 20px; /* More border radius for a bubbly look */
+        }
+        .form-control {
+            border-radius: 15px; /* Bubbly text boxes */
+        }
+        .container {
+            max-width: 1200px; /* Further increase the width to take up more space */
+            padding: 3rem; /* Add more padding for a larger appearance */
+        }
+    </style>
+</head>
+<body>
+    <div class="yumeramenmaindiv">
+        <!--NAVBAR-->
+        <nav class="navbar navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">Yume Ramen</a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="menu.html">Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!--LOGIN FORM-->
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4">Login</h2>
+                            <form>
+                                <div class="mb-4">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-salmon">Login</button>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a href="create-account.html" class="text-decoration-none create-account-link">New? Create an account</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .container {
+                max-width: 900px; /* Adjusted width for a balanced layout */
+                padding: 2rem; /* Add padding for spacing */
+            }
+            .card {
+                border-radius: 25px; /* Bubbly card */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            }
+            .form-control {
+                border-radius: 20px; /* Bubbly input fields */
+                padding: 0.75rem; /* Comfortable padding */
+            }
+            .btn-salmon {
+                background-color: #fa8072; /* Salmon color */
+                color: white;
+                border: none;
+                border-radius: 20px; /* Bubbly button */
+                padding: 0.75rem;
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+            .btn-salmon:hover {
+                background-color: #e76e60; /* Darker salmon on hover */
+            }
+            .create-account-link {
+                font-size: 0.9rem; /* Smaller font size */
+                text-decoration: underline; /* Underline the text */
+            }
+        </style>
+    </div>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
