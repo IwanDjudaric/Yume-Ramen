@@ -48,6 +48,29 @@ body {
   background-color: #f8f9fa;
 }
 
+.items {
+  margin-top: 2rem;
+  padding: 0 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.product-card-small {
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  flex: 1;
+  min-width: 150px;
+  max-width: 200px;
+}
+
+.carousel-img-small {
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
 .product-info h5 {
   font-size: 1rem;
   font-weight: 600;
