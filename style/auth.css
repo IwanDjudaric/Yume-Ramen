@@ -1,0 +1,39 @@
+.card-title {
+    font-size: 2rem; /* Bigger header */
+    font-weight: bold; /* Bolder header */
+    text-align: center; /* Center the header */
+}
+
+.create-account-link {
+    font-size: 0.9rem; /* Smaller font size */
+    text-decoration: underline; /* Underline the text */
+}
+
+.card {
+    border-radius: 25px; /* Bubbly card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.form-control {
+    border-radius: 20px; /* Bubbly input fields */
+    padding: 0.75rem; /* Comfortable padding */
+}
+
+.btn-salmon {
+    background-color: #fa8072; /* Salmon color */
+    color: white;
+    border: none;
+    border-radius: 20px; /* Bubbly button */
+    padding: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.btn-salmon:hover {
+    background-color: #e76e60; /* Darker salmon on hover */
+}
+
+.container {
+    max-width: 900px; /* Adjusted width for a balanced layout */
+    padding: 2rem; /* Add padding for spacing */
+}

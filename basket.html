@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yume Ramen</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/navbar.css">
+    <link rel="stylesheet" href="style/basket.css">
+</head>
+<body>
+    <div class="yumeramenmaindiv">
+        <!--NAVBAR-->
+        <nav class="navbar navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">Yume Ramen</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="signup.html">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="basket.html">Basket</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!--BASKET PAGE-->
+        <div class="basket-container">
+            <h1 class="basket-page-title">Your Basket</h1>
+
+            <!-- Basket Items -->
+            <div class="basket-item">
+                <img src="assets/images/placeholder.jpg" alt="Tonkotsu Ramen" class="basket-item-image">
+                <div class="basket-item-details">
+                    <div class="basket-item-amount">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                        <span class="quantity-display">2</span>
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <div class="basket-item-name">Tonkotsu Ramen</div>
+                    <div class="basket-item-price">$12.99</div>
+                </div>
+            </div>
+
+            <div class="basket-item">
+                <img src="assets/images/placeholder.jpg" alt="Shoyu Ramen" class="basket-item-image">
+                <div class="basket-item-details">
+                    <div class="basket-item-amount">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                        <span class="quantity-display">1</span>
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <div class="basket-item-name">Shoyu Ramen</div>
+                    <div class="basket-item-price">$11.99</div>
+                </div>
+            </div>
+
+            <div class="basket-item">
+                <img src="assets/images/placeholder.jpg" alt="Miso Ramen" class="basket-item-image">
+                <div class="basket-item-details">
+                    <div class="basket-item-amount">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                        <span class="quantity-display">3</span>
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                    <div class="basket-item-name">Miso Ramen</div>
+                    <div class="basket-item-price">$13.49</div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="basket-divider"></div>
+
+            <!-- Order Summary -->
+            <div class="basket-summary">
+                <div class="summary-row">
+                    <span class="summary-label">Order Price:</span>
+                    <span class="summary-value">$75.45</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Delivery Price:</span>
+                    <span class="summary-value">$5.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span class="summary-label">Total Price:</span>
+                    <span class="summary-value">$80.45</span>
+                </div>
+            </div>
+
+            <!-- Order Button -->
+            <button class="order-button">Place Order</button>
+        </div>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function increaseQuantity() {
+            // Placeholder for quantity increase functionality
+            console.log("Quantity increased");
+        }
+        function decreaseQuantity() {
+            // Placeholder for quantity decrease functionality
+            console.log("Quantity decreased");
+        }
+    </script>
+</body>
+</html>
