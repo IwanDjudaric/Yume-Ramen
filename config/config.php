@@ -1,10 +1,10 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// error_reporting(E_ALL);
 
 $servername =  'localhost';
 $username =   'Yume_ramen_102381';
-$password =   'Yume_ramen_102381!';
+$password =   'Yume_ramen_102381';
 $dbname = '102381_CRUD';
 
 $options = [

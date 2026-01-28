@@ -129,12 +129,19 @@ $grandTotal = $totalPrice + $deliveryPrice;
                     </div>
                 </div>
 
-                <!-- Order Button -->
-                <form method="POST" action="basket_operations.php" class="mt-3">
-                    <input type="hidden" name="action" value="checkout">
-                    <button type="submit" class="order-button">Place Order</button>
-                    <a href="scroll.html" class="btn btn-secondary ms-2">Continue Shopping</a>
-                </form>
+                <!-- Checkout Button -->
+                <div class="mt-4">
+                    <a href="checkout.php" class="btn btn-success btn-lg w-100 py-3" style="font-size: 1.1em;">
+                        Proceed to Checkout - €<?= number_format($grandTotal, 2, ',', '.') ?>
+                    </a>
+                    <?php if (!isset($_SESSION['user_id'])): ?>
+                        <p class="text-center mt-3">
+                            Have an account? <a href="account/login.php">Login here</a> for faster checkout.<br>
+                            Don't have an account? <a href="account/register.php">Sign up here</a> - or checkout as guest below.
+                        </p>
+                    <?php endif; ?>
+                    <a href="scroll.html" class="btn btn-secondary w-100 mt-2">Continue Shopping</a>
+                </div>
             <?php endif; ?>
         </div>
     </div>
