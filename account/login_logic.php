@@ -4,6 +4,9 @@ require_once '../config/config.php';
 
 $errors = [];
 $success = '';
+$formData = [
+    'gebruikersnaam' => ''
+];
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_gebruiker'])) {
@@ -30,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_gebruiker'])) {
                 header('Location: homepage/home.php');
                 exit;
             } else {
-                // attempt admin login (separate admin_accounts table)
+                // attempt admin login
                 $adminSql = "SELECT * FROM admins WHERE username = ?";
                 $adminStmt = $PDO->prepare($adminSql);
                 $adminStmt->execute([$gebruikersnaam]);

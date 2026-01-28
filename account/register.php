@@ -28,7 +28,7 @@
                             <a class="nav-link" href="../signup.html">Sign Up</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../basket.html">Basket</a>
+                            <a class="nav-link" href="../basket.php">Basket</a>
                         </li>
                     </ul>
                 </div>
