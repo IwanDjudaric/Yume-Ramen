@@ -96,12 +96,15 @@ try {
                     <p class="mb-4"><?= nl2br(htmlspecialchars($product['beschrijving'])) ?></p>
                     
                     <div class="d-flex gap-2">
-                        <form method="POST" action="basket_operations.php">
+                        <form method="POST" action="basket_operations.php" onsubmit="submitToBasket(event)">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                             <button type="submit" class="btn btn-salmon btn-lg">Add to Basket</button>
                         </form>
                         <a href="scroll.php" class="btn btn-outline-secondary btn-lg">Back to Products</a>
+                    </div>
+                    <div id="notification" class="alert alert-success notification-small" role="alert">
+                        Product added to basket!
                     </div>
                 </div>
             <?php endif; ?>
@@ -109,5 +112,13 @@ try {
     </div>
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function submitToBasket(event) {
+            event.preventDefault();
+            fetch(event.target.action, { method: 'POST', body: new FormData(event.target) });
+            document.getElementById('notification').style.display = 'block';
+            setTimeout(() => document.getElementById('notification').style.display = 'none', 3000);
+        }
+    </script>
 </body>
 </html>

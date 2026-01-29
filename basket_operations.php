@@ -56,6 +56,13 @@ elseif ($action === 'clear') {
     $_SESSION['success'] = "Basket cleared!";
 }
 
-// Redirect back to basket
-header('Location: basket.php');
+// Redirect based on action
+if ($action === 'add') {
+    // For add action, go back to referrer if available, otherwise go to scroll
+    $referrer = $_SERVER['HTTP_REFERER'] ?? 'scroll.php';
+    header('Location: ' . $referrer);
+} else {
+    // For remove, update, or checkout, go to basket
+    header('Location: basket.php');
+}
 exit;

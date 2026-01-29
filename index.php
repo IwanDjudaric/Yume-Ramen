@@ -72,15 +72,14 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <div class="carousel-inner">
                     <?php foreach ($producten as $index => $product): ?>
                     <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                        <div class="product-card">
+                        <a href="detail.php?id=<?= $product['id'] ?>" class="product-card product-card-block">
                             <img src="assets/images/<?= htmlspecialchars($product['afbeelding']) ?>" alt="<?= htmlspecialchars($product['naam']) ?>" class="d-block w-100 carousel-img">
                             <div class="product-info p-3 text-center">
                                 <h5 class="mb-1"><?= htmlspecialchars($product['naam']) ?></h5>
                                 <p class="text-muted small mb-2"><?= htmlspecialchars(substr($product['beschrijving'], 0, 60)) ?>...</p>
                                 <p class="mb-2"><strong>€<?= number_format($product['prijs'], 2, ',', '.') ?></strong></p>
-                                <a href="detail.php?id=<?= $product['id'] ?>" class="btn btn-sm btn-primary">View Details</a>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <?php endforeach; ?>
                 </div>

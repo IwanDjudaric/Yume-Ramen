@@ -105,11 +105,12 @@ try {
                             <h6 class="mb-1"><?= htmlspecialchars($product['naam']) ?></h6>
                             <p class="text-muted small mb-2"><?= htmlspecialchars(substr($product['beschrijving'], 0, 50)) ?>...</p>
                             <p class="mb-2 fw-bold">$<?= number_format($product['prijs'], 2) ?></p>
-                            <form method="POST" action="basket_operations.php" style="display: inline;">
+                            <form method="POST" action="basket_operations.php" onsubmit="submitToBasket(event)" class="form-inline-block">
                                 <input type="hidden" name="action" value="add">
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                                 <button type="submit" class="btn btn-sm btn-salmon add-to-basket-btn">Add to Basket</button>
                             </form>
+                            <div id="notification-<?= $product['id'] ?>" class="notification-message alert alert-success py-1 px-2" role="alert">✓ Added!</div>
                             <a href="detail.php?id=<?= $product['id'] ?>" class="btn btn-sm btn-outline-secondary add-to-basket-btn mt-2">View Details</a>
                         </div>
                     </div>
@@ -118,5 +119,16 @@ try {
         </div>
     </div>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function submitToBasket(event) {
+            event.preventDefault();
+            const form = event.target;
+            const productId = form.querySelector('[name="product_id"]').value;
+            fetch(form.action, { method: 'POST', body: new FormData(form) });
+            const notification = document.getElementById('notification-' + productId);
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 2000);
+        }
+    </script>
 </body>
 </html>

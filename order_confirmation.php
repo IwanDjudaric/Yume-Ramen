@@ -76,7 +76,7 @@ try {
         </nav>
 
         <!--ORDER CONFIRMATION PAGE-->
-        <div class="basket-container" style="max-width: 800px;">
+        <div class="basket-container order-confirmation-container">
             <div class="alert alert-success" role="alert">
                 <h2>✓ Order Confirmed!</h2>
                 <p>Thank you for your order. Your delicious ramen is on the way!</p>
@@ -120,7 +120,7 @@ try {
                             <span>€<?= number_format($item['prijs_per_stuk'] * $item['aantal'], 2, ',', '.') ?></span>
                         </div>
                     <?php endforeach; ?>
-                    <div class="d-flex justify-content-between mt-3" style="font-weight: bold; font-size: 1.1em;">
+                    <div class="d-flex justify-content-between mt-3 total-row-medium">
                         <span>Total:</span>
                         <span>€<?= number_format($order['totaal_prijs'], 2, ',', '.') ?></span>
                     </div>

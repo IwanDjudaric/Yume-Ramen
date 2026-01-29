@@ -26,6 +26,7 @@ try {
                 'name' => $product['naam'],
                 'description' => $product['beschrijving'],
                 'price' => $product['prijs'],
+                'image' => $product['afbeelding'],
                 'quantity' => $quantity,
                 'total' => $itemTotal
             ];
@@ -91,7 +92,7 @@ $grandTotal = $totalPrice + $deliveryPrice;
                             <div class="basket-item-name"><?= htmlspecialchars($item['name']) ?></div>
                             <div class="basket-item-description"><?= htmlspecialchars($item['description']) ?></div>
                             <div class="basket-item-amount">
-                                <form method="POST" action="basket_operations.php" style="display: flex; gap: 10px; align-items: center;">
+                                <form method="POST" action="basket_operations.php" class="quantity-form">
                                     <input type="hidden" name="action" value="update">
                                     <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
                                     <button type="submit" name="quantity" value="<?= $item['quantity'] - 1 ?>" class="quantity-btn" <?php if ($item['quantity'] <= 1) echo 'disabled'; ?>>−</button>
@@ -101,7 +102,7 @@ $grandTotal = $totalPrice + $deliveryPrice;
                             </div>
                             <div class="basket-item-price">$<?= number_format($item['price'], 2) ?></div>
                             <div class="basket-item-subtotal">Subtotal: $<?= number_format($item['total'], 2) ?></div>
-                            <form method="POST" action="basket_operations.php" style="display: inline;">
+                            <form method="POST" action="basket_operations.php" class="form-inline-block">
                                 <input type="hidden" name="action" value="remove">
                                 <input type="hidden" name="product_id" value="<?= $item['id'] ?>">
                                 <button type="submit" class="btn btn-sm btn-danger mt-2">Remove</button>
@@ -117,21 +118,21 @@ $grandTotal = $totalPrice + $deliveryPrice;
                 <div class="basket-summary">
                     <div class="summary-row">
                         <span class="summary-label">Order Price:</span>
-                        <span class="summary-value">$<?= number_format($totalPrice, 2) ?></span>
+                        <span class="summary-value">€<?= number_format($totalPrice, 2) ?></span>
                     </div>
                     <div class="summary-row">
                         <span class="summary-label">Delivery Price:</span>
-                        <span class="summary-value">$<?= number_format($deliveryPrice, 2) ?></span>
+                        <span class="summary-value">€<?= number_format($deliveryPrice, 2) ?></span>
                     </div>
                     <div class="summary-row total">
                         <span class="summary-label">Total Price:</span>
-                        <span class="summary-value">$<?= number_format($grandTotal, 2) ?></span>
+                        <span class="summary-value">€<?= number_format($grandTotal, 2) ?></span>
                     </div>
                 </div>
 
                 <!-- Checkout Button -->
                 <div class="mt-4">
-                    <a href="checkout.php" class="btn btn-success btn-lg w-100 py-3" style="font-size: 1.1em;">
+                    <a href="checkout.php" class="btn btn-success btn-lg w-100 py-3 btn-large-text">
                         Proceed to Checkout - €<?= number_format($grandTotal, 2, ',', '.') ?>
                     </a>
                     <?php if (!isset($_SESSION['user_id'])): ?>

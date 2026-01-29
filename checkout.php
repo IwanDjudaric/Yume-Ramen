@@ -137,7 +137,7 @@ if ($isLoggedIn) {
         </nav>
 
         <!--CHECKOUT PAGE-->
-        <div class="basket-container" style="max-width: 900px;">
+        <div class="basket-container checkout-container">
             <h1 class="basket-page-title">Checkout</h1>
 
             <?php if (!empty($errors)): ?>
@@ -178,7 +178,7 @@ if ($isLoggedIn) {
                                 <span>€<?= number_format($deliveryPrice, 2, ',', '.') ?></span>
                             </div>
                             <hr>
-                            <div class="d-flex justify-content-between" style="font-weight: bold; font-size: 1.2em;">
+                            <div class="d-flex justify-content-between total-row-large">
                                 <span>Total:</span>
                                 <span>€<?= number_format($grandTotal, 2, ',', '.') ?></span>
                             </div>
@@ -212,7 +212,7 @@ if ($isLoggedIn) {
                             <input type="hidden" name="address_option" value="new">
                         <?php endif; ?>
 
-                        <div id="addressForm" <?php if ($isLoggedIn && !empty($savedAddresses)) echo 'style="display: none;"'; ?>>
+                        <div id="addressForm" class="<?php if ($isLoggedIn && !empty($savedAddresses)) echo 'form-hidden'; ?>">
                             <!-- Contact Information -->
                             <h5>Contact Information</h5>
                             <div class="mb-3">
@@ -277,14 +277,13 @@ if ($isLoggedIn) {
                                 <option value="banktransfer">Bank Transfer</option>
                             </select>
                         </div>
+                        <input type=\"hidden\" name=\"total_price\" value=\"<?= $grandTotal ?>\">
 
-                        <input type="hidden" name="total_price" value="<?= $grandTotal ?>">
-
-                        <button type="submit" class="btn btn-primary w-100 py-3" style="font-size: 1.1em;">
+                        <button type=\"submit\" class=\"btn btn-primary w-100 py-3 btn-large-text\">
                             Complete Order - €<?= number_format($grandTotal, 2, ',', '.') ?>
                         </button>
 
-                        <a href="basket.php" class="btn btn-secondary w-100 mt-2">Back to Basket</a>
+                        <a href=\"basket.php\" class=\"btn btn-secondary w-100 mt-2\">Back to Basket</a>
                     </form>
                 </div>
             </div>

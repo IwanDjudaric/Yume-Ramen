@@ -71,6 +71,35 @@ a {
   color: inherit;
 }
 
+/* Utility Classes */
+.form-inline-block {
+  display: inline;
+}
+
+.product-card-block {
+  display: block;
+}
+
+.btn-large-text {
+  font-size: 1.1em;
+}
+
+.notification-small {
+  display: none;
+  margin-top: 10px;
+  font-size: 0.85em;
+}
+
+.notification-message {
+  display: none;
+  font-size: 0.85em;
+  margin-top: 5px;
+}
+
+.form-hidden {
+  display: none;
+}
+
 img {
   display: block;
   max-width: 100%;
