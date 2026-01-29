@@ -6,6 +6,9 @@ $productId = $_GET['id'] ?? null;
 $product = null;
 $error = '';
 
+// Check if user is logged in
+$isLoggedIn = isset($_SESSION['user_id']);
+
 if (!$productId) {
     header('Location: scroll.php');
     exit;

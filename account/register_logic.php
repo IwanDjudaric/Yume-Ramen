@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reg_user'])) {
         $errors[] = "Het email adres is ongeldig";
     }
     
-    if (strlen($wachtwoord) < 6) {
+    if (strlen($wachtwoord) < 4) {
         $errors[] = "Het wachtwoord moet minstens 6 karakters lang zijn";
     }
     

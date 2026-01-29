@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_gebruiker'])) {
             $user = $stmt->fetch();
             
             if ($user && password_verify($wachtwoord, $user['password'])) {
-                $_SESSION['gebruikersnaam'] = $user['gebruikersnaam'];
+                $_SESSION['gebruikersnaam'] = $user['username'];
                 $_SESSION['user_id'] = $user['id'];
                 // regular user
                 header('Location: ../pages/homepage/index.php');

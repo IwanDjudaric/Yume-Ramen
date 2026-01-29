@@ -7,6 +7,9 @@ if (!isset($_SESSION['basket'])) {
     $_SESSION['basket'] = [];
 }
 
+// Check if user is logged in
+$isLoggedIn = isset($_SESSION['user_id']);
+
 // Get basket items with product details
 $basketItems = [];
 $totalPrice = 0;

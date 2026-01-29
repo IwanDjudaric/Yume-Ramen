@@ -46,12 +46,12 @@ $grandTotal = $totalPrice + $deliveryPrice;
 $savedAddresses = [];
 if ($isLoggedIn) {
     try {
-        $sql = "SELECT * FROM adressen WHERE gebruiker_id = ? ORDER BY is_default DESC";
+        $sql = "SELECT * FROM adressen WHERE gebruiker_id = ? ORDER BY id DESC LIMIT 1";
         $stmt = $PDO->prepare($sql);
         $stmt->execute([$_SESSION['user_id']]);
         $savedAddresses = $stmt->fetchAll();
     } catch (PDOException $e) {
-        // Table might not exist yet
+        // No addresses or table doesn't exist
     }
 }
 
@@ -82,17 +82,14 @@ if ($isLoggedIn) {
     
     // Get user info
     try {
-        $sql = "SELECT * FROM gebruikers WHERE id = ?";
+        $sql = "SELECT username, email FROM gebruikers WHERE id = ?";
         $stmt = $PDO->prepare($sql);
         $stmt->execute([$_SESSION['user_id']]);
         $user = $stmt->fetch();
         if ($user) {
-            $formData['voornaam'] = $user['voornaam'] ?? '';
-            $formData['achternaam'] = $user['achternaam'] ?? '';
             $formData['email'] = $user['email'] ?? '';
-            $formData['telefoonnummer'] = $user['telefoonnummer'] ?? '';
         }
     } catch (PDOException $e) {
-        // Column might not exist
+        // Error getting user info
     }
 }

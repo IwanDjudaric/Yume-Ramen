@@ -79,13 +79,13 @@
                                     >
                                 </div>
                                 <div class="mb-4">
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label"  >Password</label>
                                     <input
                                         type="password"
                                         class="form-control"
                                         id="password"
                                         name="wachtwoord"
-                                        placeholder="Enter your password"
+                                        placeholder="Enter your password atleast 4 characters"
                                         required
                                     >
                                 </div>
@@ -96,7 +96,7 @@
                                         class="form-control"
                                         id="passwordrepeat"
                                         name="wachtwoordrepeat"
-                                        placeholder="Repeat your password"
+                                        placeholder="Repeat your password atleast 4 characters"
                                         required
                                     >
                                 </div>

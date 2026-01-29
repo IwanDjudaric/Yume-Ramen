@@ -20,8 +20,8 @@ try {
     $addressOption = $_POST['address_option'] ?? 'new';
     
     if ($isLoggedIn && $addressOption === 'default') {
-        // Get the default address for logged-in user
-        $sql = "SELECT id FROM adressen WHERE gebruiker_id = ? ORDER BY is_default DESC LIMIT 1";
+        // Get the most recent address for logged-in user
+        $sql = "SELECT id FROM adressen WHERE gebruiker_id = ? ORDER BY id DESC LIMIT 1";
         $stmt = $PDO->prepare($sql);
         $stmt->execute([$userId]);
         $address = $stmt->fetch();
@@ -29,7 +29,7 @@ try {
         if ($address) {
             $addressId = $address['id'];
         } else {
-            $errors[] = "No default address found. Please enter an address.";
+            $errors[] = "No saved address found. Please enter an address.";
         }
     } else {
         // Validate and save new address
@@ -54,19 +54,18 @@ try {
         if (empty($errors)) {
             $guestEmail = $email;
             
-            // Insert guest address (or user address)
+            // Insert address
             if ($isLoggedIn) {
-                $sql = "INSERT INTO adressen (gebruiker_id, straat, huisnummer, postcode, stad, land, is_default) 
-                        VALUES (?, ?, ?, ?, ?, ?, 0)";
+                $sql = "INSERT INTO adressen (gebruiker_id, straat, huisnummer, postcode, stad, land) 
+                        VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt = $PDO->prepare($sql);
                 $stmt->execute([$userId, $straat, $huisnummer, $postcode, $stad, $land]);
             } else {
-                // For guests, we'll store this as a temporary address or directly in the order
-                // Create a guest address entry (optional, depends on database structure)
-                $sql = "INSERT INTO adressen (straat, huisnummer, postcode, stad, land, is_guest, guest_email, guest_voornaam, guest_achternaam, guest_telefoonnummer) 
-                        VALUES (?, ?, ?, ?, ?, 1, ?, ?, ?, ?)";
+                // For guests, store minimal address info
+                $sql = "INSERT INTO adressen (straat, huisnummer, postcode, stad, land) 
+                        VALUES (?, ?, ?, ?, ?)";
                 $stmt = $PDO->prepare($sql);
-                $stmt->execute([$straat, $huisnummer, $postcode, $stad, $land, $email, $voornaam, $achternaam, $telefoonnummer]);
+                $stmt->execute([$straat, $huisnummer, $postcode, $stad, $land]);
             }
             $addressId = $PDO->lastInsertId();
         }
@@ -90,18 +89,14 @@ try {
         }
 
         // Create order
-        if ($isLoggedIn) {
-            $sql = "INSERT INTO bestellingen (gebruiker_id, adres_id, totaal_prijs, status, betaalmethode, aangemaakt_op, bijgewerkt_op)
-                    VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
-            $stmt = $PDO->prepare($sql);
-            $stmt->execute([$userId, $addressId, $calculatedTotal, 'pending', $betaalmethode]);
-        } else {
-            // Guest order - store email in order
-            $sql = "INSERT INTO bestellingen (adres_id, totaal_prijs, status, betaalmethode, guest_email, aangemaakt_op, bijgewerkt_op)
-                    VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
-            $stmt = $PDO->prepare($sql);
-            $stmt->execute([$addressId, $calculatedTotal, 'pending', $betaalmethode, $guestEmail]);
-        }
+        $sql = "INSERT INTO bestellingen (gebruiker_id, adres_id, totaal_prijs, status, betaalmethode, aangemaakt_op, bijgewerkt_op)
+                VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
+        $stmt = $PDO->prepare($sql);
+        
+        // Use NULL for guest orders (no user_id)
+        $orderUserId = $isLoggedIn ? $userId : null;
+        $stmt->execute([$orderUserId, $addressId, $calculatedTotal, 'pending', $betaalmethode]);
+        
         $orderId = $PDO->lastInsertId();
 
         // Insert order items
