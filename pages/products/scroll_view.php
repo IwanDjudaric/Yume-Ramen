@@ -88,7 +88,7 @@
                         <div class="product-info p-3">
                             <h6 class="mb-1"><?= htmlspecialchars($product['naam']) ?></h6>
                             <p class="text-muted small mb-2"><?= htmlspecialchars(substr($product['beschrijving'], 0, 50)) ?>...</p>
-                            <p class="mb-2 fw-bold">$<?= number_format($product['prijs'], 2) ?></p>
+                            <p class="mb-2 fw-bold">€<?= number_format($product['prijs'], 2) ?></p>
                             <form method="POST" action="../basket/basket_operations.php" onsubmit="submitToBasket(event)" class="form-inline-block">
                                 <input type="hidden" name="action" value="add">
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
