@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yume Ramen - Products</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/navbar.css">
-    <link rel="stylesheet" href="style/scroll.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../style/navbar.css">
+    <link rel="stylesheet" href="../../style/scroll.css">
     <style>
         .items {
             display: grid;
@@ -42,20 +42,20 @@
         <!--NAVBAR-->
         <nav class="navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Yume Ramen</a>
+                <a class="navbar-brand" href="../homepage/index.php">Yume Ramen</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="./account/login.php">Login</a>
+                            <a class="nav-link" href="../../account/login.php">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./account/register.php">Sign Up</a>
+                            <a class="nav-link" href="../../account/register.php">Sign Up</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="basket.php">Basket</a>
+                            <a class="nav-link" href="../basket/basket.php">Basket</a>
                         </li>
                     </ul>
                 </div>
@@ -84,12 +84,12 @@
             <?php else: ?>
                 <?php foreach ($producten as $product): ?>
                     <div class="product-card-large">
-                        <img src="assets/images/<?= htmlspecialchars($product['afbeelding']) ?>" alt="<?= htmlspecialchars($product['naam']) ?>" class="d-block w-100 carousel-img-large">
+                        <img src="../../assets/images/<?= htmlspecialchars($product['afbeelding']) ?>" alt="<?= htmlspecialchars($product['naam']) ?>" class="d-block w-100 carousel-img-large">
                         <div class="product-info p-3">
                             <h6 class="mb-1"><?= htmlspecialchars($product['naam']) ?></h6>
                             <p class="text-muted small mb-2"><?= htmlspecialchars(substr($product['beschrijving'], 0, 50)) ?>...</p>
                             <p class="mb-2 fw-bold">$<?= number_format($product['prijs'], 2) ?></p>
-                            <form method="POST" action="basket_operations.php" onsubmit="submitToBasket(event)" class="form-inline-block">
+                            <form method="POST" action="../basket/basket_operations.php" onsubmit="submitToBasket(event)" class="form-inline-block">
                                 <input type="hidden" name="action" value="add">
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                                 <button type="submit" class="btn btn-sm btn-salmon add-to-basket-btn">Add to Basket</button>
@@ -102,7 +102,7 @@
             <?php endif; ?>
         </div>
     </div>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function submitToBasket(event) {
             event.preventDefault();

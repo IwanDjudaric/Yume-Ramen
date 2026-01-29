@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yume Ramen</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/main.css">
-    <link rel="stylesheet" href="style/navbar.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../style/main.css">
+    <link rel="stylesheet" href="../../style/navbar.css">
 </head>
 <body>
     <div class="yumeramenmaindiv">
         <!--NAVBAR-->
         <nav class="navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Yume Ramen</a>
+                <a class="navbar-brand" href="../../index.php">Yume Ramen</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -21,18 +21,18 @@
                     <ul class="navbar-nav ms-auto">
                         <?php if ($isLoggedIn): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="./account/logout.php">Logout</a>
+                                <a class="nav-link" href="../../account/logout.php">Logout</a>
                             </li>
                         <?php else: ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="./account/login.php">Login</a>
+                                <a class="nav-link" href="../../account/login.php">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./account/register.php">Sign Up</a>
+                                <a class="nav-link" href="../../account/register.php">Sign Up</a>
                             </li>
                         <?php endif; ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="basket.php">Basket</a>
+                            <a class="nav-link" href="../basket/basket.php">Basket</a>
                         </li>
                     </ul>
                 </div>
@@ -41,9 +41,9 @@
         
         <!--HERO HEADER-->
         <div class="hero-header position-relative">
-            <img src="assets/images/Retro Ramen Poster _ Ramen Poster _ Vintage Poster _ Retro Poster _ Japans Eten Poster _ Klassiek Poster _ Eetgelegenheid Poster _ 60x90cm _ Wandde_.jpg" alt="Hero Image" class="w-100">
+            <img src="../../assets/images/Retro Ramen Poster _ Ramen Poster _ Vintage Poster _ Retro Poster _ Japans Eten Poster _ Klassiek Poster _ Eetgelegenheid Poster _ 60x90cm _ Wandde_.jpg" alt="Hero Image" class="w-100">
             <div class="position-absolute top-50 start-50 translate-middle">
-                <a href="scroll.php" class="btn btn-salmon btn-lg">Order Now</a>
+                <a href="../products/scroll.php" class="btn btn-salmon btn-lg">Order Now</a>
             </div>
         </div>
         
@@ -55,8 +55,8 @@
                 <div class="carousel-inner">
                     <?php foreach ($producten as $index => $product): ?>
                     <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                        <a href="detail.php?id=<?= $product['id'] ?>" class="product-card product-card-block">
-                            <img src="assets/images/<?= htmlspecialchars($product['afbeelding']) ?>" alt="<?= htmlspecialchars($product['naam']) ?>" class="d-block w-100 carousel-img">
+                        <a href="../products/detail.php?id=<?= $product['id'] ?>" class="product-card product-card-block">
+                            <img src="../../assets/images/<?= htmlspecialchars($product['afbeelding']) ?>" alt="<?= htmlspecialchars($product['naam']) ?>" class="d-block w-100 carousel-img">
                             <div class="product-info p-3 text-center">
                                 <h5 class="mb-1"><?= htmlspecialchars($product['naam']) ?></h5>
                                 <p class="text-muted small mb-2"><?= htmlspecialchars(substr($product['beschrijving'], 0, 60)) ?>...</p>
@@ -83,6 +83,6 @@
         </div>
         
     </div>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

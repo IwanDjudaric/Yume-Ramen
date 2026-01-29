@@ -4,32 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yume Ramen - Checkout</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/main.css">
-    <link rel="stylesheet" href="style/navbar.css">
-    <link rel="stylesheet" href="style/basket.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../style/main.css">
+    <link rel="stylesheet" href="../../style/navbar.css">
+    <link rel="stylesheet" href="../../style/basket.css">
 </head>
 <body>
     <div class="yumeramenmaindiv">
         <!--NAVBAR-->
         <nav class="navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Yume Ramen</a>
+                <a class="navbar-brand" href="../homepage/index.php">Yume Ramen</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="basket.php">Back to Basket</a>
+                            <a class="nav-link" href="../basket/basket.php">Back to Basket</a>
                         </li>
                         <?php if ($isLoggedIn): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="account/logout.php">Logout</a>
+                            <a class="nav-link" href="../../account/logout.php">Logout</a>
                         </li>
                         <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="account/login.php">Login</a>
+                            <a class="nav-link" href="../../account/login.php">Login</a>
                         </li>
                         <?php endif; ?>
                     </ul>
@@ -51,9 +51,9 @@
 
             <div class="alert alert-info">
                 <?php if ($isLoggedIn): ?>
-                    <strong>Logged in as guest checkout.</strong> You can also <a href="account/login.php">login to your account</a> for faster checkout with saved addresses.
+                    <strong>Logged in as guest checkout.</strong> You can also <a href="../../account/login.php">login to your account</a> for faster checkout with saved addresses.
                 <?php else: ?>
-                    <strong>Guest checkout.</strong> You can <a href="account/register.php">create an account</a> after placing your order or proceed as guest.
+                    <strong>Guest checkout.</strong> You can <a href="../../account/register.php">create an account</a> after placing your order or proceed as guest.
                 <?php endif; ?>
             </div>
 
@@ -179,14 +179,14 @@
                             Complete Order - €<?= number_format($grandTotal, 2, ',', '.') ?>
                         </button>
 
-                        <a href="basket.php" class="btn btn-secondary w-100 mt-1 py-2">Back to Basket</a>
+                        <a href="../basket/basket.php" class="btn btn-secondary w-100 mt-1 py-2">Back to Basket</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function validateCheckoutForm() {
             const voornaam = document.getElementById('voornaam').value.trim();

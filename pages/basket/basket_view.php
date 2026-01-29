@@ -4,27 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yume Ramen - Basket</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/main.css">
-    <link rel="stylesheet" href="style/navbar.css">
-    <link rel="stylesheet" href="style/basket.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../style/main.css">
+    <link rel="stylesheet" href="../../style/navbar.css">
+    <link rel="stylesheet" href="../../style/basket.css">
 </head>
 <body>
     <div class="yumeramenmaindiv">
         <!--NAVBAR-->
         <nav class="navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Yume Ramen</a>
+                <a class="navbar-brand" href="../homepage/index.php">Yume Ramen</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="./account/login.php">Login</a>
+                            <a class="nav-link" href="../../account/login.php">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./account/register.php">Sign Up</a>
+                            <a class="nav-link" href="../../account/register.php">Sign Up</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="basket.php">Basket</a>
@@ -40,13 +40,13 @@
 
             <?php if (empty($basketItems)): ?>
                 <div class="alert alert-info mt-4">
-                    <p>Your basket is empty. <a href="scroll.php">Continue shopping</a></p>
+                    <p>Your basket is empty. <a href="../products/scroll.php">Continue shopping</a></p>
                 </div>
             <?php else: ?>
                 <!-- Basket Items -->
                 <?php foreach ($basketItems as $item): ?>
                     <div class="basket-item">
-                        <img src="assets/images/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="basket-item-image">
+                        <img src="../../assets/images/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="basket-item-image">
                         <div class="basket-item-details">
                             <div class="basket-item-name"><?= htmlspecialchars($item['name']) ?></div>
                             <div class="basket-item-description"><?= htmlspecialchars($item['description']) ?></div>
@@ -91,21 +91,21 @@
 
                 <!-- Checkout Button -->
                 <div class="mt-4">
-                    <a href="checkout.php" class="btn btn-success btn-lg w-100 py-3 btn-large-text">
+                    <a href="../checkout/checkout.php" class="btn btn-success btn-lg w-100 py-3 btn-large-text">
                         Proceed to Checkout - €<?= number_format($grandTotal, 2, ',', '.') ?>
                     </a>
                     <?php if (!isset($_SESSION['user_id'])): ?>
                         <p class="text-center mt-3">
-                            Have an account? <a href="account/login.php">Login here</a> for faster checkout.<br>
-                            Don't have an account? <a href="account/register.php">Sign up here</a> - or checkout as guest below.
+                            Have an account? <a href="../../account/login.php">Login here</a> for faster checkout.<br>
+                            Don't have an account? <a href="../../account/register.php">Sign up here</a> - or checkout as guest below.
                         </p>
                     <?php endif; ?>
-                    <a href="scroll.php" class="btn btn-secondary w-100 mt-2">Continue Shopping</a>
+                    <a href="../products/scroll.php" class="btn btn-secondary w-100 mt-2">Continue Shopping</a>
                 </div>
             <?php endif; ?>
         </div>
     </div>
 
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

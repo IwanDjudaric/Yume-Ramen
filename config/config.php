@@ -5,7 +5,7 @@
 $servername =  'localhost';
 $username =   'Yume_ramen_102381';
 $password =   'Yume_ramen_102381';
-$dbname = '102381_CRUD';
+$dbname = 'Yume_Ramen';
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

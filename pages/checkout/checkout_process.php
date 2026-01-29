@@ -5,7 +5,7 @@ require_once '../../config/config.php';
 // Check if basket is empty
 if (!isset($_SESSION['basket']) || empty($_SESSION['basket'])) {
     $_SESSION['error'] = "Your basket is empty";
-    header('Location: basket.php');
+    header('Location: ../basket/basket.php');
     exit;
 }
 
@@ -131,7 +131,7 @@ try {
         }
         
         // Redirect to order confirmation
-        header('Location: order_confirmation.php?order_id=' . $orderId);
+        header('Location: ../orders/order_confirmation.php?order_id=' . $orderId);
         exit;
     }
 

@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_gebruiker'])) {
                 $_SESSION['gebruikersnaam'] = $user['gebruikersnaam'];
                 $_SESSION['user_id'] = $user['id'];
                 // regular user
-                header('Location: homepage/home.php');
+                header('Location: ../pages/homepage/index.php');
                 exit;
             } else {
                 // attempt admin login
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_gebruiker'])) {
                     $_SESSION['username'] = $admin['username'];
                     $_SESSION['is_admin'] = true;
                     $_SESSION['admin_id'] = $admin['id'];
-                    header('Location: homepage/home.php');
+                    header('Location: ../pages/homepage/index.php');
                     exit;
                 }
 

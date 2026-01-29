@@ -7,7 +7,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
 if (!$orderId) {
     $_SESSION['error'] = "Order not found";
-    header('Location: index.html');
+    header('Location: ../homepage/index.php');
     exit;
 }
 
@@ -61,17 +61,17 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Confirmation - Yume Ramen</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/main.css">
-    <link rel="stylesheet" href="style/navbar.css">
-    <link rel="stylesheet" href="style/basket.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../style/main.css">
+    <link rel="stylesheet" href="../../style/navbar.css">
+    <link rel="stylesheet" href="../../style/basket.css">
 </head>
 <body>
     <div class="yumeramenmaindiv">
         <!--NAVBAR-->
         <nav class="navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Yume Ramen</a>
+                <a class="navbar-brand" href="../homepage/index.php">Yume Ramen</a>
             </div>
         </nav>
 
@@ -147,17 +147,17 @@ try {
                 </div>
             </div>
 
-            <a href="index.php" class="btn btn-primary w-100 py-3">Continue Shopping</a>
+            <a href="../homepage/index.php" class="btn btn-primary w-100 py-3">Continue Shopping</a>
             
             <?php if ($isGuestOrder): ?>
                 <div class="alert alert-info mt-4">
                     <p>Thank you for your order! A confirmation email has been sent to <strong><?= htmlspecialchars($order['guest_email'] ?? '') ?></strong>.</p>
-                    <p>You can <a href="account/register.php">create an account</a> to track your orders in the future.</p>
+                    <p>You can <a href="../../account/register.php">create an account</a> to track your orders in the future.</p>
                 </div>
             <?php endif; ?>
         </div>
     </div>
 
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ require_once '../../config/config.php';
 // Initialize basket in session if not exists
 if (!isset($_SESSION['basket']) || empty($_SESSION['basket'])) {
     $_SESSION['error'] = "Your basket is empty";
-    header('Location: basket.php');
+    header('Location: ../basket/basket.php');
     exit;
 }
 
