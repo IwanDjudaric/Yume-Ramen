@@ -100,7 +100,7 @@ try {
             <?php else: ?>
                 <?php foreach ($producten as $product): ?>
                     <div class="product-card-large">
-                        <img src="assets/images/placeholder.jpg" alt="<?= htmlspecialchars($product['naam']) ?>" class="d-block w-100 carousel-img-large">
+                        <img src="assets/images/<?= htmlspecialchars($product['afbeelding']) ?>" alt="<?= htmlspecialchars($product['naam']) ?>" class="d-block w-100 carousel-img-large">
                         <div class="product-info p-3">
                             <h6 class="mb-1"><?= htmlspecialchars($product['naam']) ?></h6>
                             <p class="text-muted small mb-2"><?= htmlspecialchars(substr($product['beschrijving'], 0, 50)) ?>...</p>

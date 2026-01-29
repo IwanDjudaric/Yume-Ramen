@@ -86,7 +86,7 @@ try {
                 </div>
                 <a href="scroll.php" class="btn btn-primary">Back to Products</a>
             <?php elseif ($product): ?>
-                <img src="assets/images/placeholder.jpg" alt="<?= htmlspecialchars($product['naam']) ?>" class="detail-image">
+                <img src="assets/images/<?= htmlspecialchars($product['afbeelding']) ?>" alt="<?= htmlspecialchars($product['naam']) ?>" class="detail-image">
                 
                 <div class="detail-content">
                     <h1 class="mb-3"><?= htmlspecialchars($product['naam']) ?></h1>

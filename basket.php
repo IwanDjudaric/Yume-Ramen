@@ -86,7 +86,7 @@ $grandTotal = $totalPrice + $deliveryPrice;
                 <!-- Basket Items -->
                 <?php foreach ($basketItems as $item): ?>
                     <div class="basket-item">
-                        <img src="assets/images/placeholder.jpg" alt="<?= htmlspecialchars($item['name']) ?>" class="basket-item-image">
+                        <img src="assets/images/<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="basket-item-image">
                         <div class="basket-item-details">
                             <div class="basket-item-name"><?= htmlspecialchars($item['name']) ?></div>
                             <div class="basket-item-description"><?= htmlspecialchars($item['description']) ?></div>
