@@ -94,7 +94,7 @@
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                                 <button type="submit" class="btn btn-sm btn-salmon add-to-basket-btn">Add to Basket</button>
                             </form>
-                            <div id="notification-<?= $product['id'] ?>" class="notification-message alert alert-success py-1 px-2" role="alert">✓ Added!</div>
+                            <div id="notification-<?= $product['id'] ?>" class="notification-message alert alert-success py-1 px-2" role="alert" style="display: none;">✓ Added!</div>
                             <a href="detail.php?id=<?= $product['id'] ?>" class="btn btn-sm btn-outline-secondary add-to-basket-btn mt-2">View Details</a>
                         </div>
                     </div>

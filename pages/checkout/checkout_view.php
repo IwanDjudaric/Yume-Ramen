@@ -57,29 +57,29 @@
                 <?php endif; ?>
             </div>
 
-            <div class="row mt-4">
+            <div class="row mt-2 g-3">
                 <!-- Order Summary -->
                 <div class="col-md-6">
-                    <h3>Order Summary</h3>
+                    <h5 class="mb-2">Order Summary</h5>
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body p-2">
                             <?php foreach ($basketItems as $item): ?>
-                                <div class="d-flex justify-content-between mb-2">
+                                <div class="d-flex justify-content-between" style="font-size: 0.9rem;">
                                     <span><?= htmlspecialchars($item['name']) ?> × <?= $item['quantity'] ?></span>
                                     <span>€<?= number_format($item['total'], 2, ',', '.') ?></span>
                                 </div>
                             <?php endforeach; ?>
-                            <hr>
-                            <div class="d-flex justify-content-between mb-2">
+                            <hr class="my-1">
+                            <div class="d-flex justify-content-between" style="font-size: 0.9rem;">
                                 <span>Subtotal:</span>
                                 <span>€<?= number_format($totalPrice, 2, ',', '.') ?></span>
                             </div>
-                            <div class="d-flex justify-content-between mb-2">
+                            <div class="d-flex justify-content-between" style="font-size: 0.9rem;">
                                 <span>Delivery:</span>
                                 <span>€<?= number_format($deliveryPrice, 2, ',', '.') ?></span>
                             </div>
-                            <hr>
-                            <div class="d-flex justify-content-between total-row-large">
+                            <hr class="my-1">
+                            <div class="d-flex justify-content-between" style="font-size: 1.1rem; font-weight: bold;">
                                 <span>Total:</span>
                                 <span>€<?= number_format($grandTotal, 2, ',', '.') ?></span>
                             </div>
@@ -89,22 +89,21 @@
 
                 <!-- Delivery Information Form -->
                 <div class="col-md-6">
-                    <h3>Delivery & Contact Information</h3>
+                    <h5 class="mb-2">Delivery & Contact Information</h5>
                     <form method="POST" action="checkout_process.php" novalidate>
                         <?php if ($isLoggedIn && !empty($savedAddresses)): ?>
-                            <div class="mb-3">
-                                <label for="useDefault" class="form-label">
+                            <div class="mb-2">
+                                <label for="useDefault" class="form-label mb-0 small">
                                     <input type="radio" name="address_option" value="default" id="useDefault" checked>
                                     Use default address
                                 </label>
                             </div>
-                            <div id="defaultAddressDisplay" class="alert alert-info mb-3">
+                            <div id="defaultAddressDisplay" class="alert alert-info mb-2 p-2" style="font-size: 0.9rem;">
                                 <strong><?= htmlspecialchars($savedAddresses[0]['straat'] ?? '') ?> <?= htmlspecialchars($savedAddresses[0]['huisnummer'] ?? '') ?></strong><br>
-                                <?= htmlspecialchars($savedAddresses[0]['postcode'] ?? '') ?> <?= htmlspecialchars($savedAddresses[0]['stad'] ?? '') ?><br>
-                                <?= htmlspecialchars($savedAddresses[0]['land'] ?? '') ?>
+                                <?= htmlspecialchars($savedAddresses[0]['postcode'] ?? '') ?> <?= htmlspecialchars($savedAddresses[0]['stad'] ?? '') ?>
                             </div>
-                            <div class="mb-3">
-                                <label for="useNew" class="form-label">
+                            <div class="mb-2">
+                                <label for="useNew" class="form-label mb-0 small">
                                     <input type="radio" name="address_option" value="new" id="useNew">
                                     Enter a new address
                                 </label>
@@ -115,63 +114,59 @@
 
                         <div id="addressForm" class="<?php if ($isLoggedIn && !empty($savedAddresses)) echo 'form-hidden'; ?>">
                             <!-- Contact Information -->
-                            <h5>Contact Information</h5>
-                            <div class="mb-3">
-                                <label for="voornaam" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="voornaam" name="voornaam" value="<?= htmlspecialchars($formData['voornaam']) ?>" required>
+                            <h6 class="mb-2">Contact Information</h6>
+                            <div class="mb-2">
+                                <label for="voornaam" class="form-label mb-1 small">First Name <span class="text-muted">(optional)</span></label>
+                                <input type="text" class="form-control form-control-sm" id="voornaam" name="voornaam" value="<?= htmlspecialchars($formData['voornaam']) ?>">
                             </div>
 
-                            <div class="mb-3">
-                                <label for="achternaam" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="achternaam" name="achternaam" value="<?= htmlspecialchars($formData['achternaam']) ?>" required>
+                            <div class="mb-2">
+                                <label for="achternaam" class="form-label mb-1 small">Last Name <span class="text-muted">(optional)</span></label>
+                                <input type="text" class="form-control form-control-sm" id="achternaam" name="achternaam" value="<?= htmlspecialchars($formData['achternaam']) ?>">
+                                <small class="text-danger d-block">At least first name or last name is required</small>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($formData['email']) ?>" required>
+                            <div class="mb-2">
+                                <label for="email" class="form-label mb-1 small">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control form-control-sm" id="email" name="email" value="<?= htmlspecialchars($formData['email']) ?>" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="telefoonnummer" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="telefoonnummer" name="telefoonnummer" value="<?= htmlspecialchars($formData['telefoonnummer']) ?>" required>
+                            <div class="mb-2">
+                                <label for="telefoonnummer" class="form-label mb-1 small">Phone Number <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control form-control-sm" id="telefoonnummer" name="telefoonnummer" value="<?= htmlspecialchars($formData['telefoonnummer']) ?>" required>
                             </div>
 
                             <!-- Delivery Address -->
-                            <h5 class="mt-4">Delivery Address</h5>
-                            <div class="mb-3">
-                                <label for="straat" class="form-label">Street</label>
-                                <input type="text" class="form-control" id="straat" name="straat" value="<?= htmlspecialchars($formData['straat']) ?>" required>
+                            <h6 class="mt-2 mb-2">Delivery Address</h6>
+                            <div class="mb-2">
+                                <label for="straat" class="form-label mb-1 small">Street <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-sm" id="straat" name="straat" value="<?= htmlspecialchars($formData['straat']) ?>" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="huisnummer" class="form-label">House Number</label>
-                                <input type="text" class="form-control" id="huisnummer" name="huisnummer" value="<?= htmlspecialchars($formData['huisnummer']) ?>" required>
+                            <div class="mb-2">
+                                <label for="huisnummer" class="form-label mb-1 small">House Number <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-sm" id="huisnummer" name="huisnummer" value="<?= htmlspecialchars($formData['huisnummer']) ?>" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="postcode" class="form-label">Postcode</label>
-                                <input type="text" class="form-control" id="postcode" name="postcode" value="<?= htmlspecialchars($formData['postcode']) ?>" required>
+                            <div class="mb-2">
+                                <label for="postcode" class="form-label mb-1 small">Postcode <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-sm" id="postcode" name="postcode" value="<?= htmlspecialchars($formData['postcode']) ?>" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="stad" class="form-label">City</label>
-                                <input type="text" class="form-control" id="stad" name="stad" value="<?= htmlspecialchars($formData['stad']) ?>" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="land" class="form-label">Country</label>
-                                <input type="text" class="form-control" id="land" name="land" value="<?= htmlspecialchars($formData['land']) ?>" required>
+                            <div class="mb-2">
+                                <label for="stad" class="form-label mb-1 small">City <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control form-control-sm" id="stad" name="stad" value="<?= htmlspecialchars($formData['stad']) ?>" required>
                             </div>
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="opmerkingen" class="form-label">Special Instructions (Allergies, dietary requirements, etc.)</label>
-                            <textarea class="form-control" id="opmerkingen" name="opmerkingen" rows="3" placeholder="Please let us know about any allergies or special dietary requirements..."></textarea>
+                        <div class="mb-2">
+                            <label for="opmerkingen" class="form-label mb-1 small">Special Instructions</label>
+                            <textarea class="form-control form-control-sm" id="opmerkingen" name="opmerkingen" rows="2" placeholder="Allergies, dietary requirements..."></textarea>
                         </div>
 
-                        <h3 class="mt-4">Payment Method</h3>
-                        <div class="mb-3">
-                            <select class="form-control" name="betaalmethode" required>
+                        <h6 class="mt-2 mb-2">Payment Method</h6>
+                        <div class="mb-2">
+                            <select class="form-control form-control-sm" name="betaalmethode" required>
                                 <option value="creditcard">Credit Card</option>
                                 <option value="debitcard">Debit Card</option>
                                 <option value="paypal">PayPal</option>
@@ -180,11 +175,11 @@
                         </div>
                         <input type="hidden" name="total_price" value="<?= $grandTotal ?>">
 
-                        <button type="submit" class="btn btn-primary w-100 py-3 btn-large-text">
+                        <button type="submit" class="btn btn-primary w-100 py-2" onclick="return validateCheckoutForm()">
                             Complete Order - €<?= number_format($grandTotal, 2, ',', '.') ?>
                         </button>
 
-                        <a href="basket.php" class="btn btn-secondary w-100 mt-2">Back to Basket</a>
+                        <a href="basket.php" class="btn btn-secondary w-100 mt-1 py-2">Back to Basket</a>
                     </form>
                 </div>
             </div>
@@ -193,6 +188,18 @@
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        function validateCheckoutForm() {
+            const voornaam = document.getElementById('voornaam').value.trim();
+            const achternaam = document.getElementById('achternaam').value.trim();
+            
+            // Check if at least one name field is filled
+            if (!voornaam && !achternaam) {
+                alert('Please enter either a first name or last name.');
+                return false;
+            }
+            return true;
+        }
+
         <?php if ($isLoggedIn && !empty($savedAddresses)): ?>
         const addressOptions = document.querySelectorAll('input[name="address_option"]');
         const addressForm = document.getElementById('addressForm');
@@ -202,13 +209,13 @@
                 if (this.value === 'new') {
                     addressForm.style.display = 'block';
                     // Mark form fields as required
-                    document.querySelectorAll('#addressForm input').forEach(input => {
+                    document.querySelectorAll('#addressForm input[data-required]').forEach(input => {
                         input.required = true;
                     });
                 } else {
                     addressForm.style.display = 'none';
                     // Mark form fields as not required
-                    document.querySelectorAll('#addressForm input').forEach(input => {
+                    document.querySelectorAll('#addressForm input[data-required]').forEach(input => {
                         input.required = false;
                     });
                 }

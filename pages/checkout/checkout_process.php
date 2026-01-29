@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config/config.php';
+require_once '../../config/config.php';
 
 // Check if basket is empty
 if (!isset($_SESSION['basket']) || empty($_SESSION['basket'])) {

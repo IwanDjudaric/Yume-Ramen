@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config/config.php';
+require_once '../../config/config.php';
 
 // Initialize basket in session if not exists
 if (!isset($_SESSION['basket'])) {

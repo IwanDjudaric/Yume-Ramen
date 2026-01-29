@@ -30,6 +30,6 @@ if (empty($product_id)) {
 }
 
 if ($success) {
-    header('Location: ../read/index.php?success=deleted');
+    header('Location: read.php?success=deleted');
     exit;
 }

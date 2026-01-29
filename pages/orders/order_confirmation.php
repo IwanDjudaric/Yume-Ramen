@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'config/config.php';
+require_once '../../config/config.php';
 
 $orderId = $_GET['order_id'] ?? null;
 $isLoggedIn = isset($_SESSION['user_id']);
