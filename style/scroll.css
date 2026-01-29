@@ -61,6 +61,13 @@ body {
   border-radius: 0.5rem;
   overflow: hidden;
   width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-card-large:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .carousel-img-large {

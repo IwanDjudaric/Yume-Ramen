@@ -1,39 +1,57 @@
 .card-title {
-    font-size: 2rem; /* Bigger header */
-    font-weight: bold; /* Bolder header */
-    text-align: center; /* Center the header */
+  font-size: 2rem; /* Bigger header */
+  font-weight: bold; /* Bolder header */
+  text-align: center; /* Center the header */
 }
 
 .create-account-link {
-    font-size: 0.9rem; /* Smaller font size */
-    text-decoration: underline; /* Underline the text */
+  font-size: 0.9rem; /* Smaller font size */
+  text-decoration: underline; /* Underline the text */
 }
 
 .card {
-    border-radius: 25px; /* Bubbly card */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 25px; /* Bubbly card */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .form-control {
-    border-radius: 20px; /* Bubbly input fields */
-    padding: 0.75rem; /* Comfortable padding */
+  border-radius: 20px; /* Bubbly input fields */
+  padding: 0.75rem; /* Comfortable padding */
+  border: 2px solid #ddd;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #fa8072;
+  box-shadow: 0 0 0 0.2rem rgba(250, 128, 114, 0.25);
+  outline: none;
 }
 
 .btn-salmon {
-    background-color: #fa8072; /* Salmon color */
-    color: white;
-    border: none;
-    border-radius: 20px; /* Bubbly button */
-    padding: 0.75rem;
-    font-size: 1.2rem;
-    font-weight: bold;
+  background-color: #fa8072; /* Salmon color */
+  color: white;
+  border: none;
+  border-radius: 20px; /* Bubbly button */
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .btn-salmon:hover {
-    background-color: #e76e60; /* Darker salmon on hover */
+  background-color: #e76e60; /* Darker salmon on hover */
+  transform: translateY(-2px);
+}
+
+.btn-salmon:active {
+  transform: translateY(0);
 }
 
 .container {
-    max-width: 900px; /* Adjusted width for a balanced layout */
-    padding: 2rem; /* Add padding for spacing */
+  max-width: 900px; /* Adjusted width for a balanced layout */
+  padding: 2rem; /* Add padding for spacing */
 }

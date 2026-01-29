@@ -37,9 +37,6 @@
                                 <a class="nav-link" href="../../account/register.php">Sign Up</a>
                             </li>
                         <?php endif; ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../basket/basket.php">Basket</a>
-                        </li>
                     </ul>
                 </div>
             </div>

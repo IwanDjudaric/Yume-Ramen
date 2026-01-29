@@ -62,11 +62,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .quantity-btn:hover {
   background-color: #e76e60;
+  transform: scale(1.1);
+}
+
+.quantity-btn:active {
+  transform: scale(0.95);
+}
+
+.quantity-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .quantity-display {
