@@ -55,7 +55,7 @@ $grandTotal = $totalPrice + $deliveryPrice;
         <!--NAVBAR-->
         <nav class="navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">Yume Ramen</a>
+                <a class="navbar-brand" href="index.php">Yume Ramen</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -81,7 +81,7 @@ $grandTotal = $totalPrice + $deliveryPrice;
 
             <?php if (empty($basketItems)): ?>
                 <div class="alert alert-info mt-4">
-                    <p>Your basket is empty. <a href="scroll.html">Continue shopping</a></p>
+                    <p>Your basket is empty. <a href="scroll.php">Continue shopping</a></p>
                 </div>
             <?php else: ?>
                 <!-- Basket Items -->
@@ -141,7 +141,7 @@ $grandTotal = $totalPrice + $deliveryPrice;
                             Don't have an account? <a href="account/register.php">Sign up here</a> - or checkout as guest below.
                         </p>
                     <?php endif; ?>
-                    <a href="scroll.html" class="btn btn-secondary w-100 mt-2">Continue Shopping</a>
+                    <a href="scroll.php" class="btn btn-secondary w-100 mt-2">Continue Shopping</a>
                 </div>
             <?php endif; ?>
         </div>

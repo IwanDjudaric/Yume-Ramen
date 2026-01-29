@@ -15,17 +15,17 @@
         <!--NAVBAR (same structure/classes as signup.html, paths adjusted) -->
         <nav class="navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../index.html">Yume Ramen</a>
+                <a class="navbar-brand" href="../index.php">Yume Ramen</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="../login.html">Login</a>
+                            <a class="nav-link" href="../login.php">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../signup.html">Sign Up</a>
+                            <a class="nav-link" href="../register.php">Sign Up</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../basket.php">Basket</a>

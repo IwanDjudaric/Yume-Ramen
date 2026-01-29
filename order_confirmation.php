@@ -71,7 +71,7 @@ try {
         <!--NAVBAR-->
         <nav class="navbar navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">Yume Ramen</a>
+                <a class="navbar-brand" href="index.php">Yume Ramen</a>
             </div>
         </nav>
 
@@ -147,7 +147,7 @@ try {
                 </div>
             </div>
 
-            <a href="index.html" class="btn btn-primary w-100 py-3">Continue Shopping</a>
+            <a href="index.php" class="btn btn-primary w-100 py-3">Continue Shopping</a>
             
             <?php if ($isGuestOrder): ?>
                 <div class="alert alert-info mt-4">
