@@ -9,6 +9,7 @@ if (!isset($_SESSION['basket'])) {
 
 $action = $_POST['action'] ?? '';
 $productId = $_POST['product_id'] ?? null;
+$isAjax = isset($_POST['ajax']) && $_POST['ajax'] === '1';
 
 if ($action === 'add' && $productId) {
     // Add or increase quantity
@@ -54,6 +55,13 @@ elseif ($action === 'clear') {
     // Clear entire basket
     $_SESSION['basket'] = [];
     $_SESSION['success'] = "Basket cleared!";
+}
+
+// If AJAX request return success and don't redirect
+if ($isAjax) {
+    header('Content-Type: application/json');
+    echo json_encode(['success' => true]);
+    exit;
 }
 
 // Redirect based on action

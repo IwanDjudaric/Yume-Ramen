@@ -70,16 +70,19 @@
                     <p class="mb-4"><?= nl2br(htmlspecialchars($product['beschrijving'])) ?></p>
                     
                     <div class="d-flex gap-2">
-                        <form method="POST" action="../basket/basket_operations.php" onsubmit="submitToBasket(event)">
+                        <form method="POST" action="../basket/basket_operations.php">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                             <button type="submit" class="btn btn-salmon btn-lg">Add to Basket</button>
                         </form>
                         <a href="scroll.php" class="btn btn-outline-secondary btn-lg">Back to Products</a>
                     </div>
-                    <div id="notification" class="alert alert-success notification-small" role="alert" style="display: none;">
-                        Product added to basket!
-                    </div>
+                    <?php if (isset($_SESSION['success'])): ?>
+                        <div class="alert alert-success mt-3" role="alert">
+                            <?= htmlspecialchars($_SESSION['success']) ?>
+                            <?php unset($_SESSION['success']); ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
         </div>

@@ -89,12 +89,13 @@
                             <h6 class="mb-1"><?= htmlspecialchars($product['naam']) ?></h6>
                             <p class="text-muted small mb-2"><?= htmlspecialchars(substr($product['beschrijving'], 0, 50)) ?>...</p>
                             <p class="mb-2 fw-bold">€<?= number_format($product['prijs'], 2) ?></p>
-                            <form method="POST" action="../basket/basket_operations.php" onsubmit="submitToBasket(event)" class="form-inline-block">
+                            <form method="POST" action="../basket/basket_operations.php" class="form-inline-block" onsubmit="addToBasket(event, <?= $product['id'] ?>)">
                                 <input type="hidden" name="action" value="add">
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                                <input type="hidden" name="ajax" value="1">
                                 <button type="submit" class="btn btn-sm btn-salmon add-to-basket-btn">Add to Basket</button>
                             </form>
-                            <div id="notification-<?= $product['id'] ?>" class="notification-message alert alert-success py-1 px-2" role="alert" style="display: none;">✓ Added!</div>
+                            <div id="notification-<?= $product['id'] ?>" class="alert alert-success mt-2 py-1 px-2 small" role="alert" style="display: none;">✓ Added to basket!</div>
                             <a href="detail.php?id=<?= $product['id'] ?>" class="btn btn-sm btn-outline-secondary add-to-basket-btn mt-2">View Details</a>
                         </div>
                     </div>
@@ -104,14 +105,25 @@
     </div>
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function submitToBasket(event) {
+        async function addToBasket(event, productId) {
             event.preventDefault();
             const form = event.target;
-            const productId = form.querySelector('[name="product_id"]').value;
-            fetch(form.action, { method: 'POST', body: new FormData(form) });
-            const notification = document.getElementById('notification-' + productId);
-            notification.style.display = 'block';
-            setTimeout(() => notification.style.display = 'none', 2000);
+            
+            try {
+                const response = await fetch(form.getAttribute('action'), {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+                
+                // Show notification
+                const notification = document.getElementById('notification-' + productId);
+                notification.style.display = 'block';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 2000);
+            } catch (error) {
+                console.error('Error adding to basket:', error);
+            }
         }
     </script>
 </body>
