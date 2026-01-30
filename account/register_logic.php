@@ -26,8 +26,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reg_user'])) {
         $errors[] = "Alle velden moeten ingevuld worden";
     }
     
+    // Validate username length and content
+    if (!empty($gebruikersnaam) && strlen($gebruikersnaam) < 3) {
+        $errors[] = "Account name must be at least 3 characters long";
+    }
+    
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Het email adres is ongeldig";
+    }
+    
+    // Validate username is not purely numeric
+    if (!empty($gebruikersnaam) && is_numeric($gebruikersnaam)) {
+        $errors[] = "Account name cannot be only numbers";
+    }
+    
+    // Validate username contains only alphanumeric and underscores
+    if (!empty($gebruikersnaam) && !preg_match('/^[a-zA-Z0-9_]+$/', $gebruikersnaam)) {
+        $errors[] = "Account name can only contain letters, numbers, and underscores";
     }
     
     if (strlen($wachtwoord) < 4) {

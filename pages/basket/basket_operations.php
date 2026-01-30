@@ -57,10 +57,11 @@ elseif ($action === 'clear') {
     $_SESSION['success'] = "Basket cleared!";
 }
 
-// If AJAX request return success and don't redirect
+// If AJAX request return success and basket count
 if ($isAjax) {
+    $basketCount = array_sum($_SESSION['basket']);
     header('Content-Type: application/json');
-    echo json_encode(['success' => true]);
+    echo json_encode(['success' => true, 'basketCount' => $basketCount]);
     exit;
 }
 

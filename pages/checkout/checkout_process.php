@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 require_once '../../config/config.php';
 
@@ -43,37 +46,78 @@ try {
         $stad = trim($_POST['stad'] ?? '');
         $land = trim($_POST['land'] ?? 'Nederland');
 
-        if (empty($voornaam) || empty($achternaam) || empty($email) || empty($telefoonnummer) || empty($straat) || empty($huisnummer) || empty($postcode) || empty($stad)) {
-            $errors[] = "All fields are required";
+        if (empty($email) || empty($telefoonnummer) || empty($straat) || empty($huisnummer) || empty($postcode) || empty($stad)) {
+            $errors[] = "All required fields must be filled";
         }
         
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = "Invalid email address";
         }
+        
+        // Validate phone number - max 10 digits and must be numeric
+        if (!empty($telefoonnummer)) {
+            $cleanedPhone = preg_replace('/[^0-9]/', '', $telefoonnummer);
+            if (strlen($cleanedPhone) > 10) {
+                $errors[] = "Phone number cannot exceed 10 digits";
+            }
+            if (!is_numeric($cleanedPhone) || strlen($cleanedPhone) == 0) {
+                $errors[] = "Phone number must contain only numbers";
+            }
+        }
+        
+        // Validate first name and last name - must not be purely numeric
+        if (!empty($voornaam) && is_numeric($voornaam)) {
+            $errors[] = "First name cannot be only numbers";
+        }
+        if (!empty($achternaam) && is_numeric($achternaam)) {
+            $errors[] = "Last name cannot be only numbers";
+        }
+        
+        // Validate street - must not be purely numeric
+        if (!empty($straat) && is_numeric($straat)) {
+            $errors[] = "Street name cannot be only numbers";
+        }
+        
+        // Validate house number - must contain numbers (can have letters like 23a)
+        if (!empty($huisnummer) && !preg_match('/[0-9]+/', $huisnummer)) {
+            $errors[] = "House number must contain at least one number";
+        }
+        
+        // Validate postal code - must not be empty
+        if (empty($postcode)) {
+            $errors[] = "Postal code is required";
+        }
+        
+        // Validate city - must not be purely numeric
+        if (!empty($stad) && is_numeric($stad)) {
+            $errors[] = "City name cannot be only numbers";
+        }
 
         if (empty($errors)) {
             $guestEmail = $email;
             
-            // Insert address
+            // Insert address (for both logged-in users and guests)
             if ($isLoggedIn) {
-                $sql = "INSERT INTO adressen (gebruiker_id, straat, huisnummer, postcode, stad, land) 
-                        VALUES (?, ?, ?, ?, ?, ?)";
+                // Logged-in user address
+                $sql = "INSERT INTO adressen (gebruiker_id, straat, huisnummer, postcode, stad, land, is_guest) 
+                        VALUES (?, ?, ?, ?, ?, ?, 0)";
                 $stmt = $PDO->prepare($sql);
                 $stmt->execute([$userId, $straat, $huisnummer, $postcode, $stad, $land]);
             } else {
-                // For guests, store minimal address info
-                $sql = "INSERT INTO adressen (straat, huisnummer, postcode, stad, land) 
-                        VALUES (?, ?, ?, ?, ?)";
+                // Guest address with guest user ID (3) and guest-specific fields
+                $sql = "INSERT INTO adressen (gebruiker_id, straat, huisnummer, postcode, stad, land, is_guest, guest_email, guest_voornaam, guest_achternaam, guest_telefoonnummer) 
+                        VALUES (3, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?)";
                 $stmt = $PDO->prepare($sql);
-                $stmt->execute([$straat, $huisnummer, $postcode, $stad, $land]);
+                $stmt->execute([$straat, $huisnummer, $postcode, $stad, $land, $email, $voornaam, $achternaam, $telefoonnummer]);
             }
             $addressId = $PDO->lastInsertId();
         }
     }
 
     if (empty($errors)) {
-        // Get payment method
+        // Get payment method and special instructions
         $betaalmethode = $_POST['betaalmethode'] ?? 'creditcard';
+        $opmerkingen = trim($_POST['opmerkingen'] ?? '');
         $totalPrice = (float)($_POST['total_price'] ?? 0);
 
         // Calculate order total from basket (security: don't trust form submission)
@@ -89,13 +133,15 @@ try {
         }
 
         // Create order
-        $sql = "INSERT INTO bestellingen (gebruiker_id, adres_id, totaal_prijs, status, betaalmethode, aangemaakt_op, bijgewerkt_op)
-                VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
+        // Note: gebruiker_id is 3 for guests (special guest_user account)
+        $sql = "INSERT INTO bestellingen (gebruiker_id, guest_email, adres_id, totaal_prijs, status, betaalmethode, opmerkingen, aangemaakt_op, bijgewerkt_op)
+                VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         $stmt = $PDO->prepare($sql);
         
-        // Use NULL for guest orders (no user_id)
-        $orderUserId = $isLoggedIn ? $userId : null;
-        $stmt->execute([$orderUserId, $addressId, $calculatedTotal, 'pending', $betaalmethode]);
+        // Use 3 for guest orders (guest_user account ID)
+        $orderUserId = $isLoggedIn ? $userId : 3;
+        $orderGuestEmail = !$isLoggedIn ? $guestEmail : null;
+        $stmt->execute([$orderUserId, $orderGuestEmail, $addressId, $calculatedTotal, 'pending', $betaalmethode, $opmerkingen]);
         
         $orderId = $PDO->lastInsertId();
 

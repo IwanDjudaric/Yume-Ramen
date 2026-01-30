@@ -45,8 +45,20 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="../homepage/index.php">Yume Ramen</a>
                 <div class="d-flex align-items-center">
-                    <a href="../basket/basket.php" class="btn btn-dark btn-sm me-2" aria-label="Basket">
+                    <a href="../basket/basket.php" class="btn btn-dark btn-sm me-2 position-relative" aria-label="Basket">
                         <i class="bi bi-basket"></i>
+                        <?php 
+                        $basketCount = 0;
+                        if (isset($_SESSION['basket'])) {
+                            $basketCount = array_sum($_SESSION['basket']);
+                        }
+                        if ($basketCount > 0): 
+                        ?>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <?= $basketCount ?>
+                        </span>
+                        <?php endif; ?>
+                    </a>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -85,10 +97,51 @@
             <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
 
+        <!-- Search and Filter Section -->
+        <div class="container-fluid py-3 bg-light">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-6">
+                    <form method="GET" action="scroll.php" class="d-flex gap-2">
+                        <div class="flex-grow-1">
+                            <label for="search" class="form-label small mb-1">Search Products</label>
+                            <input type="text" class="form-control" id="search" name="search" placeholder="Search by name or description..." value="<?= htmlspecialchars($searchQuery) ?>">
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-salmon" style="margin-top: 22px;">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <form method="GET" action="scroll.php" class="d-flex gap-2 align-items-end">
+                        <div class="flex-grow-1">
+                            <label for="category" class="form-label small mb-1">Filter by Category</label>
+                            <select class="form-select" id="category" name="category" onchange="this.form.submit()">
+                                <option value="">All Categories</option>
+                                <?php foreach ($categories as $cat): ?>
+                                    <option value="<?= $cat['id'] ?>" <?= $selectedCategory == $cat['id'] ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($cat['naam']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <a href="scroll.php" class="btn btn-outline-secondary w-100" style="margin-top: 22px;">Clear Filters</a>
+                </div>
+            </div>
+        </div>
+
         <div class="items">
             <?php if (empty($producten)): ?>
                 <div class="col-12">
-                    <p class="text-center">No products available at the moment.</p>
+                    <p class="text-center mt-5">
+                        <?php if (!empty($searchQuery) || !empty($selectedCategory)): ?>
+                            No products found matching your search or filter.
+                        <?php else: ?>
+                            No products available at the moment.
+                        <?php endif; ?>
+                    </p>
                 </div>
             <?php else: ?>
                 <?php foreach ($producten as $product): ?>
@@ -124,6 +177,11 @@
                     body: new FormData(form)
                 });
                 
+                const data = await response.json();
+                
+                // Update basket counter
+                updateBasketCounter(data.basketCount);
+                
                 // Show notification
                 const notification = document.getElementById('notification-' + productId);
                 notification.style.display = 'block';
@@ -132,6 +190,22 @@
                 }, 2000);
             } catch (error) {
                 console.error('Error adding to basket:', error);
+            }
+        }
+        
+        function updateBasketCounter(count) {
+            const basketBtn = document.querySelector('a[aria-label="Basket"]');
+            let badge = basketBtn.querySelector('.badge');
+            
+            if (count > 0) {
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger';
+                    basketBtn.appendChild(badge);
+                }
+                badge.textContent = count;
+            } else if (badge) {
+                badge.remove();
             }
         }
     </script>

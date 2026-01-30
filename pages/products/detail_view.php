@@ -36,8 +36,20 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="../homepage/index.php">Yume Ramen</a>
                 <div class="d-flex align-items-center">
-                    <a href="../basket/basket.php" class="btn btn-dark btn-sm me-2" aria-label="Basket">
+                    <a href="../basket/basket.php" class="btn btn-dark btn-sm me-2 position-relative" aria-label="Basket">
                         <i class="bi bi-basket"></i>
+                        <?php 
+                        $basketCount = 0;
+                        if (isset($_SESSION['basket'])) {
+                            $basketCount = array_sum($_SESSION['basket']);
+                        }
+                        if ($basketCount > 0): 
+                        ?>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <?= $basketCount ?>
+                        </span>
+                        <?php endif; ?>
+                    </a>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -79,19 +91,17 @@
                     <p class="mb-4"><?= nl2br(htmlspecialchars($product['beschrijving'])) ?></p>
                     
                     <div class="d-flex gap-2">
-                        <form method="POST" action="../basket/basket_operations.php">
+                        <form method="POST" action="../basket/basket_operations.php" onsubmit="addToBasket(event)">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                            <input type="hidden" name="ajax" value="1">
                             <button type="submit" class="btn btn-salmon btn-lg">Add to Basket</button>
                         </form>
                         <a href="scroll.php" class="btn btn-outline-secondary btn-lg">Back to Products</a>
                     </div>
-                    <?php if (isset($_SESSION['success'])): ?>
-                        <div class="alert alert-success mt-3" role="alert">
-                            <?= htmlspecialchars($_SESSION['success']) ?>
-                            <?php unset($_SESSION['success']); ?>
-                        </div>
-                    <?php endif; ?>
+                    <div id="notification" class="alert alert-success mt-3" role="alert" style="display: none;">
+                        ✓ Product added to basket!
+                    </div>
                 </div>
             <?php endif; ?>
         </div>
@@ -99,11 +109,46 @@
 
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function submitToBasket(event) {
+        async function addToBasket(event) {
             event.preventDefault();
-            fetch(event.target.action, { method: 'POST', body: new FormData(event.target) });
-            document.getElementById('notification').style.display = 'block';
-            setTimeout(() => document.getElementById('notification').style.display = 'none', 3000);
+            const form = event.target;
+            
+            try {
+                const response = await fetch(form.getAttribute('action'), {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+                
+                const data = await response.json();
+                
+                // Update basket counter
+                updateBasketCounter(data.basketCount);
+                
+                // Show notification
+                const notification = document.getElementById('notification');
+                notification.style.display = 'block';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            } catch (error) {
+                console.error('Error adding to basket:', error);
+            }
+        }
+        
+        function updateBasketCounter(count) {
+            const basketBtn = document.querySelector('a[aria-label="Basket"]');
+            let badge = basketBtn.querySelector('.badge');
+            
+            if (count > 0) {
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger';
+                    basketBtn.appendChild(badge);
+                }
+                badge.textContent = count;
+            } else if (badge) {
+                badge.remove();
+            }
         }
     </script>
 </body>

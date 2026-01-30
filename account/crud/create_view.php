@@ -51,17 +51,20 @@
                             <form method="post">
                                 <div class="mb-3">
                                     <label for="naam" class="form-label">Naam</label>
-                                    <input type="text" class="form-control" id="naam" name="naam" value="<?php echo htmlspecialchars($naam ?? ''); ?>" required>
+                                    <input type="text" class="form-control" id="naam" name="naam" value="<?php echo htmlspecialchars($naam ?? ''); ?>" minlength="3" pattern="^[a-zA-Z0-9\s\-,'.&]+$" title="Product name must be at least 3 characters and cannot be only numbers" required>
+                                    <small class="text-muted d-block mt-1">3+ characters (letters, numbers, no pure numbers)</small>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="beschrijving" class="form-label">Beschrijving</label>
-                                    <textarea class="form-control" id="beschrijving" name="beschrijving" rows="3" required><?php echo htmlspecialchars($beschrijving ?? ''); ?></textarea>
+                                    <textarea class="form-control" id="beschrijving" name="beschrijving" rows="3" minlength="10" required><?php echo htmlspecialchars($beschrijving ?? ''); ?></textarea>
+                                    <small class="text-muted d-block mt-1">Minimum 10 characters</small>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="prijs" class="form-label">Prijs</label>
-                                    <input type="number" step="0.01" class="form-control" id="prijs" name="prijs" value="<?php echo htmlspecialchars($prijs ?? ''); ?>" required>
+                                    <input type="number" step="0.01" class="form-control" id="prijs" name="prijs" value="<?php echo htmlspecialchars($prijs ?? ''); ?>" min="0.01" required>
+                                    <small class="text-muted d-block mt-1">Must be greater than 0</small>
                                 </div>
 
                                 <div class="mb-3">

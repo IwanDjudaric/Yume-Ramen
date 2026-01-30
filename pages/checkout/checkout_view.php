@@ -41,6 +41,20 @@
         <div class="basket-container checkout-container">
             <h1 class="basket-page-title">Checkout</h1>
 
+            <?php if (isset($_SESSION['error'])): ?>
+                <div class="alert alert-danger mt-4">
+                    <p><?= htmlspecialchars($_SESSION['error']) ?></p>
+                    <?php unset($_SESSION['error']); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['success'])): ?>
+                <div class="alert alert-success mt-4">
+                    <p><?= htmlspecialchars($_SESSION['success']) ?></p>
+                    <?php unset($_SESSION['success']); ?>
+                </div>
+            <?php endif; ?>
+
             <?php if (!empty($errors)): ?>
                 <div class="alert alert-danger mt-4">
                     <?php foreach ($errors as $error): ?>
@@ -51,9 +65,9 @@
 
             <div class="alert alert-info">
                 <?php if ($isLoggedIn): ?>
-                    <strong>Logged in as guest checkout.</strong> You can also <a href="../../account/login.php">login to your account</a> for faster checkout with saved addresses.
+                    <strong>Welcome back!</strong> Your saved address information has been loaded for faster checkout.
                 <?php else: ?>
-                    <strong>Guest checkout.</strong> You can <a href="../../account/register.php">create an account</a> after placing your order or proceed as guest.
+                    <strong>Guest checkout.</strong> You can <a href="../../account/login.php">login to your account</a> or <a href="../../account/register.php">create an account</a> for faster checkout with saved addresses.
                 <?php endif; ?>
             </div>
 
@@ -117,45 +131,47 @@
                             <h6 class="mb-2">Contact Information</h6>
                             <div class="mb-2">
                                 <label for="voornaam" class="form-label mb-1 small">First Name <span class="text-muted">(optional)</span></label>
-                                <input type="text" class="form-control form-control-sm" id="voornaam" name="voornaam" value="<?= htmlspecialchars($formData['voornaam']) ?>">
+                                <input type="text" class="form-control form-control-sm" id="voornaam" name="voornaam" value="<?= htmlspecialchars($formData['voornaam']) ?>" pattern="^[a-zA-Z\s'-]*$" title="First name cannot contain only numbers">
                             </div>
 
                             <div class="mb-2">
                                 <label for="achternaam" class="form-label mb-1 small">Last Name <span class="text-muted">(optional)</span></label>
-                                <input type="text" class="form-control form-control-sm" id="achternaam" name="achternaam" value="<?= htmlspecialchars($formData['achternaam']) ?>">
+                                <input type="text" class="form-control form-control-sm" id="achternaam" name="achternaam" value="<?= htmlspecialchars($formData['achternaam']) ?>" pattern="^[a-zA-Z\s'-]*$" title="Last name cannot contain only numbers">
                                 <small class="text-danger d-block">At least first name or last name is required</small>
                             </div>
 
                             <div class="mb-2">
                                 <label for="email" class="form-label mb-1 small">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control form-control-sm" id="email" name="email" value="<?= htmlspecialchars($formData['email']) ?>" required>
+                                <input type="email" class="form-control form-control-sm" id="email" name="email" value="<?= htmlspecialchars($formData['email']) ?>" data-required="true" <?php if (!$isLoggedIn || empty($savedAddresses)) echo 'required'; ?>>
                             </div>
 
                             <div class="mb-2">
                                 <label for="telefoonnummer" class="form-label mb-1 small">Phone Number <span class="text-danger">*</span></label>
-                                <input type="tel" class="form-control form-control-sm" id="telefoonnummer" name="telefoonnummer" value="<?= htmlspecialchars($formData['telefoonnummer']) ?>" required>
+                                <input type="tel" class="form-control form-control-sm" id="telefoonnummer" name="telefoonnummer" value="<?= htmlspecialchars($formData['telefoonnummer']) ?>" pattern="[0-9]{1,10}" title="Phone number must be up to 10 digits" data-required="true" <?php if (!$isLoggedIn || empty($savedAddresses)) echo 'required'; ?>>
+                                <small class="text-muted d-block">Max 10 digits</small>
                             </div>
 
                             <!-- Delivery Address -->
                             <h6 class="mt-2 mb-2">Delivery Address</h6>
                             <div class="mb-2">
                                 <label for="straat" class="form-label mb-1 small">Street <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" id="straat" name="straat" value="<?= htmlspecialchars($formData['straat']) ?>" required>
+                                <input type="text" class="form-control form-control-sm" id="straat" name="straat" value="<?= htmlspecialchars($formData['straat']) ?>" pattern="^[a-zA-Z0-9\s.,'-]+$" title="Street name cannot be only numbers" data-required="true" <?php if (!$isLoggedIn || empty($savedAddresses)) echo 'required'; ?>>
                             </div>
 
                             <div class="mb-2">
                                 <label for="huisnummer" class="form-label mb-1 small">House Number <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" id="huisnummer" name="huisnummer" value="<?= htmlspecialchars($formData['huisnummer']) ?>" required>
+                                <input type="text" class="form-control form-control-sm" id="huisnummer" name="huisnummer" value="<?= htmlspecialchars($formData['huisnummer']) ?>" pattern="[0-9a-zA-Z/\-]+" title="House number must contain numbers (e.g., 23, 23a, 23-25)" data-required="true" <?php if (!$isLoggedIn || empty($savedAddresses)) echo 'required'; ?>>
+                                <small class="text-muted d-block">e.g., 23, 23a, 23-25</small>
                             </div>
 
                             <div class="mb-2">
                                 <label for="postcode" class="form-label mb-1 small">Postcode <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" id="postcode" name="postcode" value="<?= htmlspecialchars($formData['postcode']) ?>" required>
+                                <input type="text" class="form-control form-control-sm" id="postcode" name="postcode" value="<?= htmlspecialchars($formData['postcode']) ?>" data-required="true" <?php if (!$isLoggedIn || empty($savedAddresses)) echo 'required'; ?>>
                             </div>
 
                             <div class="mb-2">
                                 <label for="stad" class="form-label mb-1 small">City <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" id="stad" name="stad" value="<?= htmlspecialchars($formData['stad']) ?>" required>
+                                <input type="text" class="form-control form-control-sm" id="stad" name="stad" value="<?= htmlspecialchars($formData['stad']) ?>" pattern="^[a-zA-Z\s'-]+$" title="City name cannot be only numbers" data-required="true" <?php if (!$isLoggedIn || empty($savedAddresses)) echo 'required'; ?>>
                             </div>
                         </div>
                         
@@ -175,7 +191,7 @@
                         </div>
                         <input type="hidden" name="total_price" value="<?= $grandTotal ?>">
 
-                        <button type="submit" class="btn btn-primary w-100 py-2" onclick="return validateCheckoutForm()">
+                        <button type="submit" class="btn btn-primary w-100 py-2">
                             Complete Order - €<?= number_format($grandTotal, 2, ',', '.') ?>
                         </button>
 
@@ -188,18 +204,6 @@
 
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function validateCheckoutForm() {
-            const voornaam = document.getElementById('voornaam').value.trim();
-            const achternaam = document.getElementById('achternaam').value.trim();
-            
-            // Check if at least one name field is filled
-            if (!voornaam && !achternaam) {
-                alert('Please enter either a first name or last name.');
-                return false;
-            }
-            return true;
-        }
-
         <?php if ($isLoggedIn && !empty($savedAddresses)): ?>
         const addressOptions = document.querySelectorAll('input[name="address_option"]');
         const addressForm = document.getElementById('addressForm');
@@ -209,13 +213,13 @@
                 if (this.value === 'new') {
                     addressForm.style.display = 'block';
                     // Mark form fields as required
-                    document.querySelectorAll('#addressForm input[data-required]').forEach(input => {
+                    document.querySelectorAll('#addressForm input[data-required], #addressForm textarea[data-required]').forEach(input => {
                         input.required = true;
                     });
                 } else {
                     addressForm.style.display = 'none';
                     // Mark form fields as not required
-                    document.querySelectorAll('#addressForm input[data-required]').forEach(input => {
+                    document.querySelectorAll('#addressForm input[data-required], #addressForm textarea[data-required]').forEach(input => {
                         input.required = false;
                     });
                 }

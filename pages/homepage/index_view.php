@@ -16,8 +16,19 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="../../index.php">Yume Ramen</a>
                 <div class="d-flex align-items-center">
-                    <a href="../basket/basket.php" class="btn btn-dark btn-sm me-2" aria-label="Basket">
+                    <a href="../basket/basket.php" class="btn btn-dark btn-sm me-2 position-relative" aria-label="Basket">
                         <i class="bi bi-basket"></i>
+                        <?php 
+                        $basketCount = 0;
+                        if (isset($_SESSION['basket'])) {
+                            $basketCount = array_sum($_SESSION['basket']);
+                        }
+                        if ($basketCount > 0): 
+                        ?>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <?= $basketCount ?>
+                        </span>
+                        <?php endif; ?>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>

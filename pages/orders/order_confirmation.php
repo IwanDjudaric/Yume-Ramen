@@ -23,8 +23,8 @@ try {
         $stmt = $PDO->prepare($sql);
         $stmt->execute([$orderId, $_SESSION['user_id']]);
     } else {
-        // Guest order - use session or check guest_email
-        $sql = "SELECT * FROM bestellingen WHERE id = ? AND gebruiker_id IS NULL";
+        // Guest order - gebruiker_id = 3 for guests (guest_user account)
+        $sql = "SELECT * FROM bestellingen WHERE id = ? AND gebruiker_id = 3";
         $stmt = $PDO->prepare($sql);
         $stmt->execute([$orderId]);
         $isGuestOrder = true;
@@ -35,11 +35,13 @@ try {
         throw new Exception("Order not found or unauthorized");
     }
 
-    // Get address details
-    $sql = "SELECT * FROM adressen WHERE id = ?";
-    $stmt = $PDO->prepare($sql);
-    $stmt->execute([$order['adres_id']]);
-    $address = $stmt->fetch();
+    // Get address details (may be NULL for guest orders)
+    if ($order['adres_id']) {
+        $sql = "SELECT * FROM adressen WHERE id = ?";
+        $stmt = $PDO->prepare($sql);
+        $stmt->execute([$order['adres_id']]);
+        $address = $stmt->fetch();
+    }
 
     // Get order items
     $sql = "SELECT bi.*, p.naam FROM bestellings_items bi 
@@ -130,13 +132,21 @@ try {
             <h3>Delivery Address</h3>
             <div class="card mb-4">
                 <div class="card-body">
-                    <?php if ($isGuestOrder && isset($address['guest_voornaam'])): ?>
-                        <strong><?= htmlspecialchars($address['guest_voornaam'] ?? '') ?> <?= htmlspecialchars($address['guest_achternaam'] ?? '') ?></strong><br>
-                        <?= htmlspecialchars($address['guest_telefoonnummer'] ?? '') ?><br>
+                    <?php if ($address): ?>
+                        <?php if ($address['is_guest'] == 1): ?>
+                            <?php if (!empty($address['guest_voornaam']) || !empty($address['guest_achternaam'])): ?>
+                                <strong><?= htmlspecialchars($address['guest_voornaam'] ?? '') ?> <?= htmlspecialchars($address['guest_achternaam'] ?? '') ?></strong><br>
+                            <?php endif; ?>
+                            <?php if (!empty($address['guest_telefoonnummer'])): ?>
+                                <?= htmlspecialchars($address['guest_telefoonnummer']) ?><br>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <strong><?= htmlspecialchars($address['straat'] ?? '') ?> <?= htmlspecialchars($address['huisnummer'] ?? '') ?></strong><br>
+                        <?= htmlspecialchars($address['postcode'] ?? '') ?> <?= htmlspecialchars($address['stad'] ?? '') ?><br>
+                        <?= htmlspecialchars($address['land'] ?? '') ?>
+                    <?php else: ?>
+                        <p class="text-muted">Address information not available.</p>
                     <?php endif; ?>
-                    <strong><?= htmlspecialchars($address['straat'] ?? '') ?> <?= htmlspecialchars($address['huisnummer'] ?? '') ?></strong><br>
-                    <?= htmlspecialchars($address['postcode'] ?? '') ?> <?= htmlspecialchars($address['stad'] ?? '') ?><br>
-                    <?= htmlspecialchars($address['land'] ?? '') ?>
                 </div>
             </div>
 

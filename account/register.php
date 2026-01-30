@@ -63,8 +63,11 @@
                                         name="gebruikersnaam"
                                         placeholder="Enter your account name"
                                         value="<?php echo htmlspecialchars($formData['gebruikersnaam'] ?? ''); ?>"
+                                        pattern="^[a-zA-Z0-9_]{3,}$"
+                                        title="Username must be at least 3 characters and contain only letters, numbers, and underscores"
                                         required
                                     >
+                                    <small class="text-muted d-block mt-1">3+ characters (letters, numbers, underscores only, no pure numbers)</small>
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="form-label">Email</label>
@@ -86,8 +89,10 @@
                                         id="password"
                                         name="wachtwoord"
                                         placeholder="Enter your password atleast 4 characters"
+                                        minlength="4"
                                         required
                                     >
+                                    <small class="text-muted d-block mt-1">Minimum 4 characters</small>
                                 </div>
                                 <div class="mb-4">
                                     <label for="passwordrepeat" class="form-label">Repeat Password</label>
@@ -97,8 +102,10 @@
                                         id="passwordrepeat"
                                         name="wachtwoordrepeat"
                                         placeholder="Repeat your password atleast 4 characters"
+                                        minlength="4"
                                         required
                                     >
+                                    <small class="text-muted d-block mt-1">Must match password above</small>
                                 </div>
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-salmon" name="reg_user">Sign Up</button>
